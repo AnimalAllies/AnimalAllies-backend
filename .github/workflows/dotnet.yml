@@ -34,7 +34,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Start Docker Compose
+      - name: Create a simplified docker-compose.yml
+        run: |
+          echo "version: '3.8'" > ./backend/docker-compose.yml
+          echo "services:" >> ./backend/docker-compose.yml
+          echo "  postgres:" >> ./backend/docker-compose.yml
+          echo "    image: postgres:15" >> ./backend/docker-compose.yml
+          echo "    environment:" >> ./backend/docker-compose.yml
+          echo "      POSTGRES_USER: postgres" >> ./backend/docker-compose.yml
+          echo "      POSTGRES_PASSWORD: postgres" >> ./backend/docker-compose.yml
+          echo "      POSTGRES_DB: testdb" >> ./backend/docker-compose.yml
+          echo "    ports:" >> ./backend/docker-compose.yml
+          echo "      - \"5434:5432\"" >> ./backend/docker-compose.yml
+          echo "    healthcheck:" >> ./backend/docker-compose.yml
+          echo "      test: [\"CMD-SHELL\", \"pg_isready -U postgres\"]" >> ./backend/docker-compose.yml
+          echo "      interval: 10s" >> ./backend/docker-compose.yml
+          echo "      timeout: 5s" >> ./backend/docker-compose.yml
+          echo "      retries: 5" >> ./backend/docker-compose.yml
+
+      - name: Start PostgreSQL with Docker Compose
         run: docker-compose -f ./backend/docker-compose.yml up -d
 
       - name: Wait for PostgreSQL to be ready
