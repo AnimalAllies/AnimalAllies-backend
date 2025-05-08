@@ -79,7 +79,7 @@ jobs:
           dotnet build ./backend/backend.sln --configuration Release --no-restore
 
       - name: Apply migrations using custom script
-        run: ./backend/migrations-add-and-update.cmd
+        run: ./backend/migrations-add-and-update.sh
 
       - name: Services_Tests
         run: |
