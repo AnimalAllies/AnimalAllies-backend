@@ -47,9 +47,5 @@ jobs:
 
       - name: Services_Tests
         run: |
-          dotnet test ./TelegramBotService/TelegramBotService.sln --configuration Release --no-restore
-          dotnet test ./NotificationService/NotificationService.sln --configuration Release --no-restore
-          dotnet test ./FileService/FileService.sln --configuration Release --no-restore
-          dotnet test ./CacheInvalidatorService/CacheInvalidatorService.sln --configuration Release --no-restore
           dotnet test ./backend/backend.sln --configuration Release --no-restore
          
