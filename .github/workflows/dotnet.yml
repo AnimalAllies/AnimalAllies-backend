@@ -78,6 +78,9 @@ jobs:
           dotnet build ./CacheInvalidatorService/CacheInvalidatorService.sln --configuration Release --no-restore
           dotnet build ./backend/backend.sln --configuration Release --no-restore
 
+      - name: Apply migrations using custom script
+        run: ./backend/migrations-add-and-update.cmd
+
       - name: Services_Tests
         run: |
           dotnet test ./backend/backend.sln --configuration Release --no-restore
